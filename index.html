@@ -13,10 +13,9 @@
       margin: 0;
       padding: 0;
       font-family: 'Poppins', sans-serif;
-      /* Ganti URL di bawah ini dengan gambar kasino neon favoritmu */
       background: url('https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=1950&q=80') no-repeat center center fixed;
       background-size: cover;
-      color: #ffb84d; /* sedikit lebih terang untuk neon-emas */
+      color: #ffb84d;
       text-align: center;
       user-select: none;
       overflow-x: hidden;
@@ -29,7 +28,7 @@
       top: 0; left: 0;
       width: 100%;
       height: 100%;
-      background-color: rgba(0, 0, 0, 0.75); /* overlay hitam transparan */
+      background-color: rgba(0, 0, 0, 0.75);
       z-index: 0;
     }
 
@@ -42,10 +41,7 @@
     h1 {
       font-weight: 600;
       font-size: 2.2rem;
-      text-shadow:
-        0 0 10px #ff8c00,
-        0 0 20px #ffa500,
-        0 0 30px #ff8c00;
+      text-shadow: 0 0 10px #ff8c00, 0 0 20px #ffa500, 0 0 30px #ff8c00;
       margin-bottom: 25px;
       color: #ffb84d;
     }
@@ -54,7 +50,6 @@
       margin-bottom: 30px;
       display: flex;
       justify-content: center;
-      gap: 0;
       flex-wrap: nowrap;
       max-width: 100%;
     }
@@ -100,9 +95,7 @@
       background: #331a00;
       border-radius: 15px;
       margin: 0 auto 35px auto;
-      box-shadow:
-        inset 0 0 20px #663300,
-        0 0 20px #ff8c00;
+      box-shadow: inset 0 0 20px #663300, 0 0 20px #ff8c00;
       overflow: hidden;
       position: relative;
     }
@@ -155,9 +148,7 @@
     #percentText {
       font-size: 2.2rem;
       font-weight: 600;
-      text-shadow:
-        0 0 12px #ff8c00,
-        0 0 25px #ffa500;
+      text-shadow: 0 0 12px #ff8c00, 0 0 25px #ffa500;
       margin-bottom: 45px;
       color: #ffb84d;
       min-height: 2.8rem;
@@ -167,9 +158,7 @@
       font-weight: 600;
       font-size: 1.4rem;
       margin-bottom: 20px;
-      text-shadow:
-        0 0 10px #ffa500,
-        0 0 12px #ff8c00;
+      text-shadow: 0 0 10px #ffa500, 0 0 12px #ff8c00;
       color: #ffb84d;
     }
 
@@ -295,13 +284,13 @@
 <body>
   <div class="background-overlay"></div>
   <div class="content-wrapper">
-    <h1>🎰 CEK WINRATE KAMU DI KASINOJP 🎰</h1>
+    <h1>🎰 CEK WINRATE KAMU DI KOKITOTO 🎰</h1>
     <div class="input-group">
-      <input id="userId" type="text" placeholder="Masukkan User ID kamu" value="" />
+      <input id="userId" type="text" placeholder="Masukkan User ID kamu" />
       <button id="checkBtn">CEK WINRATE</button>
     </div>
 
-    <div class="progress-wrapper" aria-label="Progress Bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+    <div class="progress-wrapper" aria-label="Progress Bar">
       <div class="progress-stripes"></div>
       <div class="progress-end"></div>
     </div>
@@ -317,22 +306,22 @@
 
   <script>
     const games = [
-     {name:"MAHJONG WAYS",img:"https://raw.githubusercontent.com/reyreygits/ariptoto11/main/jong1.png"},
-    {name:"MAHJONG WAYS 2",img:"https://raw.githubusercontent.com/reyreygits/ariptoto11/main/jong2.png"},
-    {name:"WILD BANDITO",img:"https://raw.githubusercontent.com/reyreygits/ariptoto11/main/bandit1.png"},
-    {name:"MAFIA MAYHEM",img:"https://raw.githubusercontent.com/reyreygits/ariptoto11/main/mayhem3.png"},
-    {name:"LUCKY NEKO",img:"https://raw.githubusercontent.com/reyreygits/ariptoto11/main/neko2.png"},
-    {name:"WAYS OF THE QILIN",img:"https://raw.githubusercontent.com/reyreygits/ariptoto11/main/qilin12.png"},
-    {name:"WILD BOUNTY",img:"https://raw.githubusercontent.com/reyreygits/ariptoto11/main/bounty.png"},
-    {name:"GALAXY STONE",img:"https://raw.githubusercontent.com/reyreygits/ariptoto11/main/galaxy2.png"}
-    {name:"GATES OF OLYMPUS",img:"https://raw.githubusercontent.com/reyreygits/ariptoto11/main/zeus.png"},
-    {name:"GATES OF OLYMPUS SUPER",img:"https://raw.githubusercontent.com/reyreygits/ariptoto11/main/zeus1.png"},
-    {name:"STARLIGHT PRINCESS",img:"https://raw.githubusercontent.com/reyreygits/ariptoto11/main/icens1.png"},
-    {name:"STARLIGHT PRINCESS 2",img:"https://raw.githubusercontent.com/reyreygits/ariptoto11/main/inces2.png"},
-    {name:"BUFFALO KING",img:"https://raw.githubusercontent.com/reyreygits/ariptoto11/main/falo1.png"},
-    {name:"POWER OF THOR",img:"https://raw.githubusercontent.com/reyreygits/ariptoto11/main/thor1.png"},
-    {name:"SWEET BONANZA 1000",img:"https://raw.githubusercontent.com/reyreygits/ariptoto11/main/sweet1.png"},
-    {name:"MAHJONG WINS 3",img:"https://raw.githubusercontent.com/reyreygits/ariptoto11/main/wins2.png"}
+      {name:"MAHJONG WAYS",img:"https://raw.githubusercontent.com/reyreygits/ariptoto11/main/jong1.png"},
+      {name:"MAHJONG WAYS 2",img:"https://raw.githubusercontent.com/reyreygits/ariptoto11/main/jong2.png"},
+      {name:"WILD BANDITO",img:"https://raw.githubusercontent.com/reyreygits/ariptoto11/main/bandit1.png"},
+      {name:"MAFIA MAYHEM",img:"https://raw.githubusercontent.com/reyreygits/ariptoto11/main/mayhem3.png"},
+      {name:"LUCKY NEKO",img:"https://raw.githubusercontent.com/reyreygits/ariptoto11/main/neko2.png"},
+      {name:"WAYS OF THE QILIN",img:"https://raw.githubusercontent.com/reyreygits/ariptoto11/main/qilin12.png"},
+      {name:"WILD BOUNTY",img:"https://raw.githubusercontent.com/reyreygits/ariptoto11/main/bounty.png"},
+      {name:"GALAXY STONE",img:"https://raw.githubusercontent.com/reyreygits/ariptoto11/main/galaxy2.png"},
+      {name:"GATES OF OLYMPUS",img:"https://raw.githubusercontent.com/reyreygits/ariptoto11/main/zeus.png"},
+      {name:"GATES OF OLYMPUS SUPER",img:"https://raw.githubusercontent.com/reyreygits/ariptoto11/main/zeus1.png"},
+      {name:"STARLIGHT PRINCESS",img:"https://raw.githubusercontent.com/reyreygits/ariptoto11/main/icens1.png"},
+      {name:"STARLIGHT PRINCESS 2",img:"https://raw.githubusercontent.com/reyreygits/ariptoto11/main/inces2.png"},
+      {name:"BUFFALO KING",img:"https://raw.githubusercontent.com/reyreygits/ariptoto11/main/falo1.png"},
+      {name:"POWER OF THOR",img:"https://raw.githubusercontent.com/reyreygits/ariptoto11/main/thor1.png"},
+      {name:"SWEET BONANZA 1000",img:"https://raw.githubusercontent.com/reyreygits/ariptoto11/main/sweet1.png"},
+      {name:"MAHJONG WINS 3",img:"https://raw.githubusercontent.com/reyreygits/ariptoto11/main/wins2.png"}
     ];
 
     const gameList = document.getElementById('gameList');
@@ -389,7 +378,6 @@
         return;
       }
 
-      // Reset
       progressStripes.style.width = '0%';
       progressEnd.classList.remove('visible');
       percentText.textContent = '0% (–)';
