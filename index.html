@@ -36,7 +36,7 @@
     h1 {
       font-weight: 600;
       font-size: 2.2rem;
-      text-shadow: 0 0 10px #ff8c00, 0 0 20px #ffa500, 0 0 30px #ff8c00;
+      text-shadow: 0 0 10px #ff8c00, 0 0 20px #ffa500;
       margin-bottom: 25px;
       color: #ffb84d;
     }
@@ -44,7 +44,6 @@
       margin-bottom: 30px;
       display: flex;
       justify-content: center;
-      gap: 0;
       flex-wrap: nowrap;
       max-width: 100%;
     }
@@ -73,7 +72,6 @@
       text-transform: uppercase;
       text-shadow: 0 0 5px #ffffff;
       transition: background 0.3s ease, box-shadow 0.3s ease;
-      flex-shrink: 0;
     }
     button:hover {
       background: linear-gradient(90deg, #ffb84d, #ff8c00);
@@ -100,7 +98,6 @@
       position: absolute;
       left: 0;
       top: 0;
-      z-index: 2;
       transition: width 0.3s ease;
     }
     @keyframes stripesMove {
@@ -242,9 +239,15 @@
     const percentText = document.getElementById('percentText');
     const loginButton = document.getElementById('loginButton');
 
-    function renderGames() {
+    // Fungsi acak array dan ambil 8 item
+    function getRandomGames() {
+      const shuffled = [...games].sort(() => 0.5 - Math.random());
+      return shuffled.slice(0, 8);
+    }
+
+    function renderGames(selectedGames) {
       gameList.innerHTML = '';
-      games.forEach(game => {
+      selectedGames.forEach(game => {
         const card = document.createElement('div');
         card.className = 'game-card';
         card.innerHTML = `
@@ -268,12 +271,14 @@
       percentText.textContent = '0%';
 
       let percent = 0;
+      const selectedGames = getRandomGames();
+
       const interval = setInterval(() => {
         percent += Math.random() * 8;
         if (percent >= 100) {
           percent = 100;
           clearInterval(interval);
-          renderGames();
+          renderGames(selectedGames);
           gameList.classList.add('visible');
           loginButton.style.display = 'inline-block';
         }
