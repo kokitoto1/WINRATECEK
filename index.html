@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CEK WINRATE KOKITOTO</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Poppins', sans-serif;
+      /* Ganti URL di bawah ini dengan gambar kasino neon favoritmu */
+      background: url('https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=1950&q=80') no-repeat center center fixed;
+      background-size: cover;
+      color: #ffb84d; /* sedikit lebih terang untuk neon-emas */
+      text-align: center;
+      user-select: none;
+      overflow-x: hidden;
+      min-height: 100vh;
+      position: relative;
+    }
+
+    .background-overlay {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.75); /* overlay hitam transparan */
+      z-index: 0;
+    }
+
+    .content-wrapper {
+      position: relative;
+      z-index: 1;
+      padding: 20px;
+    }
+
+    h1 {
+      font-weight: 600;
+      font-size: 2.2rem;
+      text-shadow:
+        0 0 10px #ff8c00,
+        0 0 20px #ffa500,
+        0 0 30px #ff8c00;
+      margin-bottom: 25px;
+      color: #ffb84d;
+    }
+
+    .input-group {
+      margin-bottom: 30px;
+      display: flex;
+      justify-content: center;
+      gap: 0;
+      flex-wrap: nowrap;
+      max-width: 100%;
+    }
+
+    input[type="text"] {
+      flex-grow: 1;
+      min-width: 0;
+      padding: 14px 18px;
+      font-size: 1rem;
+      border-radius: 6px 0 0 6px;
+      border: none;
+      outline: none;
+      color: #222;
+      font-weight: 600;
+      max-width: 400px;
+    }
+
+    button {
+      padding: 14px 22px;
+      font-size: 1rem;
+      font-weight: 600;
+      border: 2px solid #ff8c00;
+      border-left: none;
+      background: linear-gradient(90deg, #ff8c00, #ffb84d);
+      color: white;
+      cursor: pointer;
+      border-radius: 0 6px 6px 0;
+      text-transform: uppercase;
+      text-shadow: 0 0 5px #ffffff;
+      transition: background 0.3s ease, box-shadow 0.3s ease;
+      flex-shrink: 0;
+    }
+
+    button:hover {
+      background: linear-gradient(90deg, #ffb84d, #ff8c00);
+      box-shadow: 0 0 20px #ff8c00, 0 0 30px #ffb84d;
+    }
+
+    .progress-wrapper {
+      width: 90%;
+      max-width: 700px;
+      height: 28px;
+      background: #331a00;
+      border-radius: 15px;
+      margin: 0 auto 35px auto;
+      box-shadow:
+        inset 0 0 20px #663300,
+        0 0 20px #ff8c00;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .progress-stripes {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(
+        90deg,
+        #ff8c00 0%,
+        #ff9c33 10%,
+        #ffb366 20%,
+        #ffcc99 30%,
+        #ffdca3 40%,
+        #ffb84d 50%,
+        #ffcc66 60%,
+        #ffb366 70%,
+        #ff9c33 80%,
+        #ff8c00 90%,
+        #ff8c00 100%
+      );
+      background-size: 200% 100%;
+      animation: stripesMove 1.5s linear infinite;
+      border-radius: 15px 0 0 15px;
+      box-shadow: 0 0 12px #ff8c00;
+      position: absolute;
+      left: 0;
+      top: 0;
+      z-index: 2;
+      transition: width 0.3s ease;
+    }
+
+    .progress-end {
+      position: absolute;
+      top: 0; right: 0;
+      height: 100%;
+      width: 30px;
+      background: linear-gradient(90deg, #ff8c00, transparent);
+      border-radius: 0 15px 15px 0;
+      box-shadow: 0 0 15px #ff8c00;
+      z-index: 3;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .progress-end.visible {
+      opacity: 1;
+    }
+
+    #percentText {
+      font-size: 2.2rem;
+      font-weight: 600;
+      text-shadow:
+        0 0 12px #ff8c00,
+        0 0 25px #ffa500;
+      margin-bottom: 45px;
+      color: #ffb84d;
+      min-height: 2.8rem;
+    }
+
+    .subtitle {
+      font-weight: 600;
+      font-size: 1.4rem;
+      margin-bottom: 20px;
+      text-shadow:
+        0 0 10px #ffa500,
+        0 0 12px #ff8c00;
+      color: #ffb84d;
+    }
+
+    .game-list {
+      display: flex;
+      gap: 18px;
+      overflow-x: auto;
+      padding-bottom: 12px;
+      max-width: 90vw;
+      margin: 0 auto;
+      scroll-behavior: smooth;
+      opacity: 0;
+      transition: opacity 0.6s ease;
+      pointer-events: none;
+    }
+
+    .game-list.visible {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .game-card {
+      flex: 0 0 auto;
+      width: 150px;
+      background: #763300;
+      border-radius: 14px;
+      box-shadow: 0 0 10px #ff8c00, 0 0 25px #ffa500;
+      transition: transform 0.3s ease;
+      cursor: pointer;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .game-card:hover {
+      transform: scale(1.1);
+      box-shadow: 0 0 20px #ff8c00, 0 0 35px #ffa500;
+    }
+
+    .game-card img {
+      width: 100%;
+      height: 110px;
+      border-radius: 14px 14px 0 0;
+      object-fit: cover;
+    }
+
+    .game-name {
+      font-weight: 600;
+      padding: 12px 10px;
+      font-size: 1rem;
+      text-shadow: 0 0 8px #ffa500;
+      color: #ffda9e;
+      text-align: center;
+      width: 100%;
+    }
+
+    .login-btn {
+      margin-top: 35px;
+      padding: 16px 32px;
+      font-size: 1.2rem;
+      font-weight: bold;
+      background: linear-gradient(90deg, #ff8c00, #ffb84d);
+      color: white;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      text-shadow: 0 0 8px #fff;
+      box-shadow: 0 0 15px #ff8c00;
+      transition: all 0.3s ease;
+      display: none;
+    }
+
+    .login-btn:hover {
+      box-shadow: 0 0 25px #ffa500, 0 0 40px #ff8c00;
+      background: linear-gradient(90deg, #ffb84d, #ff8c00);
+    }
+
+    @keyframes stripesMove {
+      0% { background-position: 0 0; }
+      100% { background-position: 200% 0; }
+    }
+
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 1.8rem;
+      }
+      .input-group {
+        flex-wrap: wrap;
+        gap: 12px;
+      }
+      input[type="text"] {
+        border-radius: 6px;
+        max-width: 100%;
+        flex-grow: 1;
+      }
+      button {
+        border-radius: 6px;
+        border-left: 2px solid #ff8c00;
+        width: 100%;
+        flex-shrink: 1;
+      }
+      .progress-wrapper {
+        height: 22px;
+      }
+      #percentText {
+        font-size: 1.8rem;
+        margin-bottom: 35px;
+      }
+      .subtitle {
+        font-size: 1.2rem;
+        margin-bottom: 15px;
+      }
+      .game-card {
+        width: 120px;
+      }
+      .game-card img {
+        height: 90px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="background-overlay"></div>
+  <div class="content-wrapper">
+    <h1>🎰 CEK WINRATE KAMU DI KASINOJP 🎰</h1>
+    <div class="input-group">
+      <input id="userId" type="text" placeholder="Masukkan User ID kamu" value="" />
+      <button id="checkBtn">CEK WINRATE</button>
+    </div>
+
+    <div class="progress-wrapper" aria-label="Progress Bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+      <div class="progress-stripes"></div>
+      <div class="progress-end"></div>
+    </div>
+
+    <div id="percentText">0% (–)</div>
+
+    <div class="subtitle">🎯 GAME AUTO WINRATE KHUSUS AKUNMU 🎯</div>
+
+    <div class="game-list" id="gameList"></div>
+
+    <a href="https://www.kaluamadrid.com/" id="loginButton" class="login-btn">🔓 LOGIN SEKARANG</a>
+  </div>
+
+  <script>
+    const games = [
+     {name:"MAHJONG WAYS",img:"https://raw.githubusercontent.com/reyreygits/ariptoto11/main/jong1.png"},
+    {name:"MAHJONG WAYS 2",img:"https://raw.githubusercontent.com/reyreygits/ariptoto11/main/jong2.png"},
+    {name:"WILD BANDITO",img:"https://raw.githubusercontent.com/reyreygits/ariptoto11/main/bandit1.png"},
+    {name:"MAFIA MAYHEM",img:"https://raw.githubusercontent.com/reyreygits/ariptoto11/main/mayhem3.png"},
+    {name:"LUCKY NEKO",img:"https://raw.githubusercontent.com/reyreygits/ariptoto11/main/neko2.png"},
+    {name:"WAYS OF THE QILIN",img:"https://raw.githubusercontent.com/reyreygits/ariptoto11/main/qilin12.png"},
+    {name:"WILD BOUNTY",img:"https://raw.githubusercontent.com/reyreygits/ariptoto11/main/bounty.png"},
+    {name:"GALAXY STONE",img:"https://raw.githubusercontent.com/reyreygits/ariptoto11/main/galaxy2.png"}
+    {name:"GATES OF OLYMPUS",img:"https://raw.githubusercontent.com/reyreygits/ariptoto11/main/zeus.png"},
+    {name:"GATES OF OLYMPUS SUPER",img:"https://raw.githubusercontent.com/reyreygits/ariptoto11/main/zeus1.png"},
+    {name:"STARLIGHT PRINCESS",img:"https://raw.githubusercontent.com/reyreygits/ariptoto11/main/icens1.png"},
+    {name:"STARLIGHT PRINCESS 2",img:"https://raw.githubusercontent.com/reyreygits/ariptoto11/main/inces2.png"},
+    {name:"BUFFALO KING",img:"https://raw.githubusercontent.com/reyreygits/ariptoto11/main/falo1.png"},
+    {name:"POWER OF THOR",img:"https://raw.githubusercontent.com/reyreygits/ariptoto11/main/thor1.png"},
+    {name:"SWEET BONANZA 1000",img:"https://raw.githubusercontent.com/reyreygits/ariptoto11/main/sweet1.png"},
+    {name:"MAHJONG WINS 3",img:"https://raw.githubusercontent.com/reyreygits/ariptoto11/main/wins2.png"}
+    ];
+
+    const gameList = document.getElementById('gameList');
+    const userIdInput = document.getElementById('userId');
+    const checkBtn = document.getElementById('checkBtn');
+    const progressStripes = document.querySelector('.progress-stripes');
+    const progressEnd = document.querySelector('.progress-end');
+    const percentText = document.getElementById('percentText');
+    const progressWrapper = document.querySelector('.progress-wrapper');
+    const loginButton = document.getElementById('loginButton');
+
+    let animationFrameId = null;
+
+    function animateProgress(duration, onUpdate, onComplete) {
+      let start = null;
+      function step(timestamp) {
+        if (!start) start = timestamp;
+        const elapsed = timestamp - start;
+        const progress = Math.min(elapsed / duration, 1);
+        onUpdate(progress);
+        if (progress < 1) {
+          animationFrameId = requestAnimationFrame(step);
+        } else {
+          onComplete();
+        }
+      }
+      animationFrameId = requestAnimationFrame(step);
+    }
+
+    function getRandomGames(arr, count) {
+      const shuffled = [...arr].sort(() => 0.5 - Math.random());
+      return shuffled.slice(0, count);
+    }
+
+    function renderGames(selectedGames) {
+      gameList.innerHTML = '';
+      selectedGames.forEach(game => {
+        const card = document.createElement('div');
+        card.className = 'game-card';
+        card.innerHTML = `
+          <img src="${game.img}" alt="${game.name}" />
+          <div class="game-name">${game.name}</div>
+        `;
+        gameList.appendChild(card);
+      });
+    }
+
+    function startCheck() {
+      if (animationFrameId) cancelAnimationFrame(animationFrameId);
+
+      const userId = userIdInput.value.trim();
+      if (!userId) {
+        alert('Masukkan User ID kamu terlebih dahulu.');
+        return;
+      }
+
+      // Reset
+      progressStripes.style.width = '0%';
+      progressEnd.classList.remove('visible');
+      percentText.textContent = '0% (–)';
+      progressWrapper.setAttribute('aria-valuenow', 0);
+      gameList.classList.remove('visible');
+      gameList.innerHTML = '';
+      loginButton.style.display = 'none';
+
+      animateProgress(20000, (progress) => {
+        const percent = Math.floor(progress * 90);
+        progressStripes.style.width = percent + '%';
+        percentText.textContent = `${percent}% (–)`;
+        progressWrapper.setAttribute('aria-valuenow', percent);
+      }, () => {
+        progressStripes.style.width = '100%';
+        progressEnd.classList.add('visible');
+        percentText.textContent = `90% (${userId})`;
+        progressWrapper.setAttribute('aria-valuenow', 94);
+
+        const randomGames = getRandomGames(games, 3);
+        renderGames(randomGames);
+        gameList.classList.add('visible');
+        loginButton.style.display = 'inline-block';
+      });
+    }
+
+    checkBtn.addEventListener('click', startCheck);
+  </script>
+</body>
+</html>
